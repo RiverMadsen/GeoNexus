@@ -2,7 +2,7 @@ import React from 'react';
 
 const Menu = () => {
     return (
-        <div className='absolute  z-1000 h-screen w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
+        <div className='absolute  z-1000 py-6 px-2 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
             <ul>
                 <li><a href="#option1">Option 1</a></li>
                 <li><a href="#option2">Option 2</a></li>

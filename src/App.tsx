@@ -7,12 +7,16 @@ import Menu from './Menu'
 import './tailwind.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuClick = () => {
+    setMenuOpen(prevState => !prevState);
+  }
 
   return (
     <>
-      <Menu />
-      <Leaflet />
+      {menuOpen && <Menu />}
+      <Leaflet onMenuClick={handleMenuClick} />
     </>
   )
 }
