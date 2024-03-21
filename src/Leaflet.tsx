@@ -3,10 +3,10 @@ import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 
 interface LeafletProps {
-  onMenuClick: () => void;
+  onMenuClick: (actor:string) => void;
 }
 
-const Leaflet: React.FC<LeafletProps> = ({onMenuClick}) => {
+const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null); // Store the map instance
 
@@ -16,6 +16,13 @@ const Leaflet: React.FC<LeafletProps> = ({onMenuClick}) => {
       L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
       }).addTo(mapInstance.current);
+    }
+
+    // Add click event listener
+    if (mapInstance.current !== null) {
+      mapInstance.current.on('click', () => {
+        onMenuClick("map");
+      });
     }
 
     // Clean up function to avoid memory leaks and issues when the component unmounts
@@ -29,7 +36,7 @@ const Leaflet: React.FC<LeafletProps> = ({onMenuClick}) => {
 
   const openMenu = () => {
     console.log("click menu")
-    onMenuClick();
+    onMenuClick("menu");
   }
 
   return (
