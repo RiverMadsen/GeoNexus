@@ -15,29 +15,30 @@ interface MenuProps {
     onMenuClose: () => void;
 }
 const menuItems = [
-    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color:"nex-red"},
-    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color:"nex-orange"},
-    { id: 2, name: "Sketch a Route" , icon: <BsPencil />, color:"nex-yellow"},
-    { id: 3, name: "Record a Route" , icon: <BsRecordCircle />, color:"nex-green"},
-    { id: 4, name: "Create Waypoint" , icon: <BsPinMapFill />, color:"nex-blue"},
-    { id: 5, name: "View Elevation Profile" , icon: <LuMountainSnow />, color:"nex-purple"},
-    { id: 6, name: "Navigate to Route" , icon: <ImCompass />, color:"nex-red"},
-    { id: 7, name: "Share Route" , icon: <FiShare2 />, color:"nex-orange"},
-    { id: 8, name: "Settings" , icon: <IoSettingsOutline />, color:"nex-green"},
-    { id: 9, name: "Help" , icon: <MdOutlineHelp />, color:"nex-blue"},
-    { id: 10, name: "Geek Zone" , icon: <LuGlasses />, color:"nex-purple"},
+    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red" },
+    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange" },
+    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow" },
+    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green" },
+    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue" },
+    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple" },
+    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red" },
+    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" },
+    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" },
+    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" },
+    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" },
 
 ]
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
     return (
         <>
-            <div>
-                <div className="text-nex-red w-1 h-1">test</div>
-                <div className="text-nex-orange w-1 h-1">test</div>
-                <div className="text-nex-yellow w-1 h-1">test</div>
-                <div className="text-nex-green w-1 h-1">test</div>
-                <div className="text-nex-blue w-1 h-1">test</div>
-                <div className="text-nex-purple w-1 h-1">test</div>
+            {/* Hidden div to load the colors */}
+            <div style={{ display: 'none' }}>
+                <div className="text-nex-red w-1 h-1"> </div>
+                <div className="text-nex-orange w-1 h-1"> </div>
+                <div className="text-nex-yellow w-1 h-1"> </div>
+                <div className="text-nex-green w-1 h-1"> </div>
+                <div className="text-nex-blue w-1 h-1"> </div>
+                <div className="text-nex-purple w-1 h-1"> </div>
             </div>
             <div className='font-sans absolute  z-1000 py-6 px-4 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
@@ -49,7 +50,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                         </svg>
                     </button>
                 </div>
-                <nav  className="mt-10">
+                <nav className="mt-10">
                     <ul>
                         {
                             menuItems.map((item) => {
