@@ -9,14 +9,24 @@ import './tailwind.css';
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMenuClick = () => {
-    setMenuOpen(prevState => !prevState);
+  // When the user clicks the "X" button on the menu or
+  // clicks on the map while the menu is open, then the
+  // menu should close. When the user clicks on the menu
+  // button (aka "burger button"), then the menu should
+  // toggle its state.
+  const handleMenuStateChange = (actor:string) => {
+    if(actor === "menu"){
+      setMenuOpen(prevState => !prevState);
+    }
+    if(actor === "map"){
+      setMenuOpen(false);
+    }
   }
 
   return (
     <>
-      {menuOpen && <Menu />}
-      <Leaflet onMenuClick={handleMenuClick} />
+      {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
+      <Leaflet onMenuClick={(actor:string) => handleMenuStateChange(actor)} />
     </>
   )
 }
