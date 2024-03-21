@@ -21,7 +21,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
 
             <div className='absolute  z-1000 py-6 px-2 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
                 <h2 className=' text-5xl'><span className='bg-cyan-500'>Geo</span><span className='text-green-500'>Nexus</span></h2>
-                <h4 className='mt-2 italic text-sm text-yellow-300'>The intersection of Tech and Adventure!</h4>
+                <h4 className='mt-2 italic text-sm text-yellow-300'>Where Tech Meets Adventure!</h4>
                 <div className="menuClose">
                     <button className="hover:text-transparent absolute top-0 right-0 m-4 p-1 bg-transparent" onClick={onMenuClose}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-yellow-300">
