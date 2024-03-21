@@ -20,7 +20,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
     // Add click event listener
     if (mapInstance.current !== null) {
-      mapInstance.current.on('click', (e) => {
+      mapInstance.current.on('click', () => {
         onMenuClick("map");
       });
     }
