@@ -8,6 +8,10 @@
 // }
 
 module.exports = {
+  content: [
+    './public/index.html',
+    './src/**/*.{html,js,ts,tsx}',
+  ],
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {

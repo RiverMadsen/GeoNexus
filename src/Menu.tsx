@@ -19,13 +19,13 @@ const menuItems = [
     { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color:"nex-orange"},
     { id: 2, name: "Sketch a Route" , icon: <BsPencil />, color:"nex-yellow"},
     { id: 3, name: "Record a Route" , icon: <BsRecordCircle />, color:"nex-green"},
-    { id: 31, name: "Create Waypoint" , icon: <BsPinMapFill />, color:"nex-blue"},
-    { id: 4, name: "View Elevation Profile" , icon: <LuMountainSnow />, color:"nex-purple"},
-    { id: 5, name: "Navigate to Route" , icon: <ImCompass />, color:"nex-red"},
-    { id: 6, name: "Share Route" , icon: <FiShare2 />, color:"nex-orange"},
-    { id: 7, name: "Settings" , icon: <IoSettingsOutline />, color:"nex-green"},
-    { id: 8, name: "Help" , icon: <MdOutlineHelp />, color:"nex-blue"},
-    { id: 9, name: "Geek Zone" , icon: <LuGlasses />, color:"nex-purple"},
+    { id: 4, name: "Create Waypoint" , icon: <BsPinMapFill />, color:"nex-blue"},
+    { id: 5, name: "View Elevation Profile" , icon: <LuMountainSnow />, color:"nex-purple"},
+    { id: 6, name: "Navigate to Route" , icon: <ImCompass />, color:"nex-red"},
+    { id: 7, name: "Share Route" , icon: <FiShare2 />, color:"nex-orange"},
+    { id: 8, name: "Settings" , icon: <IoSettingsOutline />, color:"nex-green"},
+    { id: 9, name: "Help" , icon: <MdOutlineHelp />, color:"nex-blue"},
+    { id: 10, name: "Geek Zone" , icon: <LuGlasses />, color:"nex-purple"},
 
 ]
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
@@ -56,6 +56,14 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                         }
                     </ul>
                 </nav>
+            </div>
+            <div>
+                <div className="bg-nex-red w-1 h-1">test</div>
+                <div className="bg-nex-orange w-1 h-1">test</div>
+                <div className="bg-nex-yellow w-1 h-1">test</div>
+                <div className="bg-nex-green w-1 h-1">test</div>
+                <div className="bg-nex-blue w-1 h-1">test</div>
+                <div className="bg-nex-purple w-1 h-1">test</div>
             </div>
         </>
 
