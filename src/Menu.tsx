@@ -1,5 +1,4 @@
 // import React from 'react';
-import styles from './Menu.module.css';
 import { FaDrawPolygon } from "react-icons/fa";
 import { BsPencil } from "react-icons/bs";
 import { BsRecordCircle } from "react-icons/bs";
