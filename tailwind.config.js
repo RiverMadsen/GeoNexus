@@ -12,7 +12,7 @@ module.exports = {
     './public/index.html',
     './src/**/*.{html,js,ts,tsx}',
   ],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
