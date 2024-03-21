@@ -26,6 +26,10 @@ const menuItems = [
     { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" },
     { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" },
     { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" },
+    { id: 11, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" },
+    { id: 12, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" },
+    { id: 13, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" },
+    { id: 14, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" },
 
 ]
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
@@ -40,7 +44,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                 <div className="text-nex-blue w-1 h-1"> </div>
                 <div className="text-nex-purple w-1 h-1"> </div>
             </div>
-            <div className='font-sans absolute  z-1000 py-6 px-4 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
+            <div className='font-sans absolute  overflow-y-scroll z-1000 py-6 px-4  h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
                 <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
                 <div className="menuClose">
