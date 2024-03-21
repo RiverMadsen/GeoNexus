@@ -9,6 +9,7 @@ import { MdOutlineHelp } from "react-icons/md";
 import { LuGlasses } from "react-icons/lu";
 import { FiShare2 } from "react-icons/fi";
 import { TiFolderOpen } from "react-icons/ti";
+import { BsPinMapFill } from "react-icons/bs";
 
 interface MenuProps {
     onMenuClose: () => void;
@@ -16,14 +17,15 @@ interface MenuProps {
 const menuItems = [
     { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color:"nex-red"},
     { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color:"nex-orange"},
-    { id: 2, name: "Draw a Route" , icon: <BsPencil />, color:"nex-yellow"},
+    { id: 2, name: "Sketch a Route" , icon: <BsPencil />, color:"nex-yellow"},
     { id: 3, name: "Record a Route" , icon: <BsRecordCircle />, color:"nex-green"},
-    { id: 4, name: "View Elevation Profile" , icon: <LuMountainSnow />, color:"nex-blue"},
-    { id: 5, name: "Navigate to Route" , icon: <ImCompass />, color:"nex-purple"},
-    { id: 6, name: "Share Route" , icon: <FiShare2 />, color:"nex-red"},
-    { id: 7, name: "Settings" , icon: <IoSettingsOutline />, color:"nex-orange"},
-    { id: 8, name: "Help" , icon: <MdOutlineHelp />, color:"nex-yellow"},
-    { id: 9, name: "Geek Zone" , icon: <LuGlasses />, color:"nex-green"},
+    { id: 31, name: "Create Waypoint" , icon: <BsPinMapFill />, color:"nex-blue"},
+    { id: 4, name: "View Elevation Profile" , icon: <LuMountainSnow />, color:"nex-purple"},
+    { id: 5, name: "Navigate to Route" , icon: <ImCompass />, color:"nex-red"},
+    { id: 6, name: "Share Route" , icon: <FiShare2 />, color:"nex-orange"},
+    { id: 7, name: "Settings" , icon: <IoSettingsOutline />, color:"nex-green"},
+    { id: 8, name: "Help" , icon: <MdOutlineHelp />, color:"nex-blue"},
+    { id: 9, name: "Geek Zone" , icon: <LuGlasses />, color:"nex-purple"},
 
 ]
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
@@ -32,7 +34,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
 
             <div className='font-sans absolute  z-1000 py-6 px-4 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
-                <h4 className='mt-1 italic text-sm text-nex-dark-white'>Adventure Meets Tech</h4>
+                <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
                 <div className="menuClose">
                     <button className="hover:text-transparent absolute top-0 right-0 m-4 p-1 bg-transparent" onClick={onMenuClose}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-nex-red border-2 rounded-md border-nex-yellow">
