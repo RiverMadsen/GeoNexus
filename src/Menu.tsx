@@ -31,7 +31,14 @@ const menuItems = [
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
     return (
         <>
-
+            <div>
+                <div className="text-nex-red w-1 h-1">test</div>
+                <div className="text-nex-orange w-1 h-1">test</div>
+                <div className="text-nex-yellow w-1 h-1">test</div>
+                <div className="text-nex-green w-1 h-1">test</div>
+                <div className="text-nex-blue w-1 h-1">test</div>
+                <div className="text-nex-purple w-1 h-1">test</div>
+            </div>
             <div className='font-sans absolute  z-1000 py-6 px-4 h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
                 <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
@@ -57,14 +64,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                     </ul>
                 </nav>
             </div>
-            <div>
-                <div className="bg-nex-red w-1 h-1">test</div>
-                <div className="bg-nex-orange w-1 h-1">test</div>
-                <div className="bg-nex-yellow w-1 h-1">test</div>
-                <div className="bg-nex-green w-1 h-1">test</div>
-                <div className="bg-nex-blue w-1 h-1">test</div>
-                <div className="bg-nex-purple w-1 h-1">test</div>
-            </div>
+
         </>
 
     );
