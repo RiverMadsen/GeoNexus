@@ -15,24 +15,27 @@ interface MenuProps {
     onMenuClose: () => void;
 }
 const menuItems = [
-    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red" },
-    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange" },
-    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow" },
-    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green" },
-    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue" },
-    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple" },
-    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red" },
-    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" },
-    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" },
-    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" },
-    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" },
-    { id: 11, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" },
-    { id: 12, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" },
-    { id: 13, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" },
-    { id: 14, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" },
+    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red", component: "OpenRoute"},
+    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange", component: "TakeAreaOffline"},
+    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow", component: "OpenRoute"},
+    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green", component: "OpenRoute"},
+    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue" , component: "OpenRoute"},
+    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple", component: "OpenRoute"},
+    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red", component: "OpenRoute"},
+    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" , component: "OpenRoute"},
+    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green", component: "OpenRoute"},
+    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
+    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
+    { id: 11, name: "Share Route", icon: <FiShare2 />, color: "nex-orange", component: "OpenRoute"},
+    { id: 12, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" , component: "OpenRoute"},
+    { id: 13, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
+    { id: 14, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
 
 ]
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
+    const handleMenuItemClick = (component: string) => {
+        console.log(component);
+    }
     return (
         <>
             {/* Hidden div to load the colors */}
@@ -44,7 +47,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                 <div className="text-nex-blue w-1 h-1"> </div>
                 <div className="text-nex-purple w-1 h-1"> </div>
             </div>
-            <div className='font-sans absolute  overflow-y-scroll z-1000 py-6 px-4  h-screen w-10/12 md:w-2/6 bg-gradient-to-r from-black via-black/90 to-black/70'>
+            <div className='font-sans absolute  overflow-y-scroll z-1002 py-6 px-4  h-screen w-10/12 md:w-2/6 border-r-2 border-nex-blue bg-gradient-to-r from-black via-black/90 to-nex-dark-gray/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
                 <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
                 <div className="menuClose">
@@ -61,7 +64,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                                 return (
                                     <li key={item.id} className="border-b-2 py-4 border-nex-dark-gray flex items-center ">
                                         <div className={`text-${item.color} mr-2 text-2xl`}>{item.icon}</div>
-                                        <a className='text-nex-dark-white font-normal  ' >{item.name}</a>
+                                        <a className='text-nex-dark-white font-normal  ' onClick={() => handleMenuItemClick(item.component)}>{item.name}</a>
                                     </li>
                                 )
                             })
