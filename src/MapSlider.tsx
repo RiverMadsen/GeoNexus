@@ -7,16 +7,16 @@ interface MapSliderProps {
 }
 const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
     const [mouseDown, setMouseDown] = useState(false);
-    const [sliderPosition, setSliderPosition] = useState({x: 0, y: 0});
+    const [sliderPosition, setSliderPosition] = useState({ x: 0, y: 0 });
     const SCREEN_HEIGHT = window.innerHeight;
     const SCREEN_WIDTH = window.innerWidth;
 
     useEffect(() => {
         //Set the slider position equal to 50% of the screen height for the y-axis and 95% of the screen width
         // for the x-axis
-        const x = SCREEN_WIDTH -44;
+        const x = SCREEN_WIDTH - 100;
         const y = SCREEN_HEIGHT * 0.5;
-        setSliderPosition({x: x, y: y});
+        setSliderPosition({ x: x, y: y });
     }, [])
 
     const toggleMouseDownState = (newState: boolean) => {
@@ -25,32 +25,67 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
     }
 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        console.log(Math.random());
         const touch = e.touches[0]; // Get the first touch point
         let x = touch.clientX; // Get the x position
         let y = touch.clientY; // Get the y position
-        if(x < 10) {
+        if (x < 10) {
             x = 10;
             toggleMouseDownState(false);
         }
-        if (x >  SCREEN_WIDTH -44) {
-            x =  SCREEN_WIDTH -44;
+        if (x > SCREEN_WIDTH - 44) {
+            x = SCREEN_WIDTH - 44;
             toggleMouseDownState(false);
         }
-        if(y < 24){
+        if (y < 24) {
             y = 24;
         }
-        if(y > SCREEN_HEIGHT - 24){
+        if (y > SCREEN_HEIGHT - 24) {
             y = SCREEN_HEIGHT - 24;
         }
-        setSliderPosition({x: x, y: y});
+        setSliderPosition({ x: x, y: y });
         onSlide(x, y);
-        console.log(`x: ${x}, y: ${y}`);
+        //console.log(`x: ${x}, y: ${y}`);
+    }
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.buttons !== 1) {
+            return;
+        }
+        let x = e.clientX - 16; // Get the x position
+        let y = e.clientY; // Get the y position
+        //console.log("mouseMove " + x + " | " + y)
+        if (x < 10) {
+            x = 10;
+            //toggleMouseDownState(false);
+        }
+        if (x > SCREEN_WIDTH - 44) {
+            //debugger;
+            //x = SCREEN_WIDTH - 44;
+            //toggleMouseDownState(false);
+            //console.log("too wide: " + x + " | " + SCREEN_WIDTH )
+        }
+        if (y < 24) {
+            y = 24;
+        }
+        if (y > SCREEN_HEIGHT - 24) {
+            y = SCREEN_HEIGHT - 24;
+        }
+    
+        setSliderPosition({ x: x, y: y });
+        onSlide(x, y);
+        //console.log(`x: ${x}, y: ${y}`);
     }
 
     return (
         <>
-            <div style={{top:sliderPosition.y-24, left:sliderPosition.x}} onTouchMove={handleTouchMove} onClick={onClick} onMouseDown={() => toggleMouseDownState(true)} onMouseUp={() => toggleMouseDownState(false)} 
-            className='z-1001 absolute w-[32px] text-black h-[48px] opacity-50 border-nex-blue border-2 bg-nex-green rounded-md '>
+            <div style={{ top: sliderPosition.y - 24, left: sliderPosition.x }}
+                onTouchMove={handleTouchMove}
+                onClick={onClick}
+                onMouseDown={() => toggleMouseDownState(true)}
+                onMouseUp={() => toggleMouseDownState(false)}
+                onMouseMove={handleMouseMove}
+                className='z-1001 absolute w-[32px] text-black h-[48px] opacity-50 border-nex-blue border-2 bg-nex-green rounded-md '>
 
             </div>
         </>
