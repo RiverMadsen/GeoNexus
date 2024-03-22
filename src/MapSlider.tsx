@@ -19,23 +19,30 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
         setSliderPosition({ x: x, y: y });
     }, [])
 
-    const toggleMouseDownState = (newState: boolean) => {
-        console.log("mouseDown " + newState)
-        setMouseDown(newState);
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        //setMouseDown(true);
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    const handleMouseUp = (e: MouseEvent) => {
+        //setMouseDown(false);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
     }
 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-        console.log(Math.random());
+        e.preventDefault();
         const touch = e.touches[0]; // Get the first touch point
         let x = touch.clientX; // Get the x position
         let y = touch.clientY; // Get the y position
         if (x < 10) {
             x = 10;
-            toggleMouseDownState(false);
+            setMouseDown(false);
         }
         if (x > SCREEN_WIDTH - 44) {
             x = SCREEN_WIDTH - 44;
-            toggleMouseDownState(false);
+            setMouseDown(false);
         }
         if (y < 24) {
             y = 24;
@@ -45,46 +52,86 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
         }
         setSliderPosition({ x: x, y: y });
         onSlide(x, y);
-        //console.log(`x: ${x}, y: ${y}`);
+        return false;
     }
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.buttons !== 1) {
+    const handleMouseMove = (e: MouseEvent) => {
+        // if (!mouseDown) {
+        //     return;
+        // }
+        if(e.buttons !== 1) {
             return;
         }
         let x = e.clientX - 16; // Get the x position
         let y = e.clientY; // Get the y position
-        //console.log("mouseMove " + x + " | " + y)
+        console.log("mouseMove " + x + " | " + y)
         if (x < 10) {
             x = 10;
             //toggleMouseDownState(false);
         }
         if (x > SCREEN_WIDTH - 44) {
             //debugger;
-            //x = SCREEN_WIDTH - 44;
+            x = SCREEN_WIDTH - 44;
             //toggleMouseDownState(false);
             //console.log("too wide: " + x + " | " + SCREEN_WIDTH )
         }
         if (y < 24) {
             y = 24;
         }
-        if (y > SCREEN_HEIGHT - 24) {
-            y = SCREEN_HEIGHT - 24;
+        if (y > SCREEN_HEIGHT - 48) {
+            y = SCREEN_HEIGHT - 48;
         }
-    
+
         setSliderPosition({ x: x, y: y });
         onSlide(x, y);
-        //console.log(`x: ${x}, y: ${y}`);
+        // Rest of your code...
     }
 
+    // const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    //     if (e.buttons !== 1) {
+    //         return;
+    //     }
+    //     let x = e.clientX - 16; // Get the x position
+    //     let y = e.clientY; // Get the y position
+    //     //console.log("mouseMove " + x + " | " + y)
+    //     if (x < 10) {
+    //         x = 10;
+    //         //toggleMouseDownState(false);
+    //     }
+    //     if (x > SCREEN_WIDTH - 44) {
+    //         //debugger;
+    //         //x = SCREEN_WIDTH - 44;
+    //         //toggleMouseDownState(false);
+    //         //console.log("too wide: " + x + " | " + SCREEN_WIDTH )
+    //     }
+    //     if (y < 24) {
+    //         y = 24;
+    //     }
+    //     if (y > SCREEN_HEIGHT - 24) {
+    //         y = SCREEN_HEIGHT - 24;
+    //     }
+
+    //     setSliderPosition({ x: x, y: y });
+    //     onSlide(x, y);
+    //     //console.log(`x: ${x}, y: ${y}`);
+    // }
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        // Disable touch scrolling on the element
+        //e.currentTarget.style.touchAction = 'none';
+    };
+    
+    const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+        // Re-enable touch scrolling on the element
+        //e.currentTarget.style.touchAction = '';
+    };
     return (
         <>
             <div style={{ top: sliderPosition.y - 24, left: sliderPosition.x }}
                 onTouchMove={handleTouchMove}
                 onClick={onClick}
-                onMouseDown={() => toggleMouseDownState(true)}
-                onMouseUp={() => toggleMouseDownState(false)}
-                onMouseMove={handleMouseMove}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
                 className='z-1001 absolute w-[32px] text-black h-[48px] opacity-50 border-nex-blue border-2 bg-nex-green rounded-md '>
 
             </div>

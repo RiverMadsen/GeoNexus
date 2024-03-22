@@ -5,7 +5,8 @@ import Menu from './Menu'
 import './tailwind.css';
 import MainContent from './MainContent';
 import MapSlider from './MapSlider'
-
+//TODO - consider adding overflow:hidden and overscroll-behavior: none; to html element
+//see: https://www.the-koi.com/projects/how-to-disable-pull-to-refresh/
 function App() {
   const SCREEN_HEIGHT = window.innerHeight;
   const SCREEN_WIDTH = window.innerWidth;
