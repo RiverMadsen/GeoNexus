@@ -22,6 +22,8 @@ module.exports = {
       zIndex: {
         '100': '100',
         '1000': '1000',
+        '1001': '1001',
+        '1002': '1002',
         'max': '2147483647', // Highest possible z-index value
       },
       colors: {

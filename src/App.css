@@ -4,7 +4,15 @@
   padding: 2rem;
   text-align: center;
 } */
+html, body {
+  overscroll-behavior-x: none;
+  overflow:hidden ;
+  overscroll-behavior: none;
+}
+.leaflet-control-attribution.leaflet-control {
+  display: none;
 
+}
 .logo {
   height: 6em;
   padding: 1.5em;
