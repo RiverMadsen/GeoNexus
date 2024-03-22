@@ -47,7 +47,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                 <div className="text-nex-blue w-1 h-1"> </div>
                 <div className="text-nex-purple w-1 h-1"> </div>
             </div>
-            <div className='font-sans absolute  overflow-y-scroll z-1002 py-6 px-4  h-screen w-10/12 md:w-2/6 border-r-2 border-nex-blue bg-gradient-to-r from-black via-black/90 to-nex-dark-gray/70'>
+            <div className='font-sans absolute  overflow-y-scroll z-1002 py-6 px-4  h-screen w-10/12 md:w-2/6 border-r-2 sm:border-nex-blue md:border-none bg-gradient-to-r from-black via-black/90 to-nex-dark-gray/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
                 <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
                 <div className="menuClose">
