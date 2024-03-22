@@ -19,14 +19,12 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
         setSliderPosition({ x: x, y: y });
     }, [])
 
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-        //setMouseDown(true);
+    const handleMouseDown = () => {
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
     }
 
-    const handleMouseUp = (e: MouseEvent) => {
-        //setMouseDown(false);
+    const handleMouseUp = () => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
     }
