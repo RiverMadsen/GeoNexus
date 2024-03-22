@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import './App.css'
 
 function OpenRoute() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
 
   return (
     <>
