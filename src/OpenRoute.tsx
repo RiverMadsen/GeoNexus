@@ -4,7 +4,7 @@ function OpenRoute() {
 
   return (
     <>
-      <h2>Open Route</h2>
+      <h1>OPEN ROUTE</h1>
     </>
   )
 }

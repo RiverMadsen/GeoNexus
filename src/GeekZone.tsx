@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface SettingsProps {
+interface GeekZoneProps {
     // Define your props here, for example:
     // theme: 'light' | 'dark';
 }
 
-const Settings: React.FC<SettingsProps> = () => {
+const GeekZone: React.FC<GeekZoneProps> = () => {
 
     return (
         <div>
-            <h1>Settings</h1>
+            <h1>Geek Zone</h1>
         </div>
     );
 }
 
-export default Settings;
+export default GeekZone;

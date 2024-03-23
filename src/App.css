@@ -48,3 +48,9 @@ html, body {
 .read-the-docs {
   color: #888;
 }
+
+h1 {
+  font-size: 2em !important;
+  text-transform: uppercase;
+  text-align: center;
+}

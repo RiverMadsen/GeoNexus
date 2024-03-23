@@ -37,7 +37,7 @@ function App() {
 
   return (
     <>
-      <MenuContext.Provider value={{ activeMenuItem, setActiveMenuItem }}>
+      <MenuContext.Provider value={{ activeMenuItem, isMenuOpen:menuOpen, setActiveMenuItem }}>
         {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
         <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
         <MainContent requestedPosition={sliderPosition} />

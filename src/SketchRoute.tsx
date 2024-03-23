@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface SettingsProps {
+interface SketchRouteProps {
     // Define your props here, for example:
     // theme: 'light' | 'dark';
 }
 
-const Settings: React.FC<SettingsProps> = () => {
+const SketchRoute: React.FC<SketchRouteProps> = () => {
 
     return (
         <div>
-            <h1>Settings</h1>
+            <h1>Sketch a Route</h1>
         </div>
     );
 }
 
-export default Settings;
+export default SketchRoute;

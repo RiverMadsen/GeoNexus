@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface SettingsProps {
+interface HelpProps {
     // Define your props here, for example:
     // theme: 'light' | 'dark';
 }
 
-const Settings: React.FC<SettingsProps> = () => {
+const Help: React.FC<HelpProps> = () => {
 
     return (
         <div>
-            <h1>Settings</h1>
+            <h1>Help</h1>
         </div>
     );
 }
 
-export default Settings;
+export default Help;

@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface SettingsProps {
+interface ShareRouteProps {
     // Define your props here, for example:
     // theme: 'light' | 'dark';
 }
 
-const Settings: React.FC<SettingsProps> = () => {
+const ShareRoute: React.FC<ShareRouteProps> = () => {
 
     return (
         <div>
-            <h1>Settings</h1>
+            <h1>Share a Route</h1>
         </div>
     );
 }
 
-export default Settings;
+export default ShareRoute;
