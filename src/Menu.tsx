@@ -10,31 +10,31 @@ import { LuGlasses } from "react-icons/lu";
 import { FiShare2 } from "react-icons/fi";
 import { TiFolderOpen } from "react-icons/ti";
 import { BsPinMapFill } from "react-icons/bs";
+import { useContext } from "react";
+import { MenuContext } from "./store/MenuContext";
+import { useState } from "react";
 
 interface MenuProps {
     onMenuClose: () => void;
 }
 const menuItems = [
-    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red", component: "OpenRoute"},
-    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange", component: "TakeAreaOffline"},
-    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow", component: "OpenRoute"},
-    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green", component: "OpenRoute"},
-    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple", component: "OpenRoute"},
-    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red", component: "OpenRoute"},
-    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" , component: "OpenRoute"},
-    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green", component: "OpenRoute"},
-    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
-    { id: 11, name: "Share Route", icon: <FiShare2 />, color: "nex-orange", component: "OpenRoute"},
-    { id: 12, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" , component: "OpenRoute"},
-    { id: 13, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 14, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
-
-]
+    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red", component: "OpenRoute" },
+    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange", component: "TakeAreaOffline" },
+    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow", component: "OpenRoute" },
+    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green", component: "OpenRoute" },
+    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue", component: "OpenRoute" },
+    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple", component: "OpenRoute" },
+    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red", component: "OpenRoute" },
+    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange", component: "OpenRoute" },
+    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green", component: "Settings" },
+    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue", component: "OpenRoute" },
+    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple", component: "OpenRoute" }];
+    
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
-    const handleMenuItemClick = (component: string) => {
-        console.log(component);
+    const {setActiveMenuItem} =  useContext(MenuContext);
+    const handleMenuItemClick = (component: string ) => {
+        
+        setActiveMenuItem(component);
     }
     return (
         <>

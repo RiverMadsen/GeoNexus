@@ -5,20 +5,21 @@ import Menu from './Menu'
 import './tailwind.css';
 import MainContent from './MainContent';
 import MapSlider from './MapSlider'
-//TODO - consider adding overflow:hidden and overscroll-behavior: none; to html element
-//see: https://www.the-koi.com/projects/how-to-disable-pull-to-refresh/
+import { MenuContext } from './store/MenuContext';
+
 function App() {
   const SCREEN_HEIGHT = window.innerHeight;
   const SCREEN_WIDTH = window.innerWidth;
   const [menuOpen, setMenuOpen] = useState(false);
-  const [sliderPosition, setSliderPosition] = useState({x: SCREEN_WIDTH-32, y: SCREEN_HEIGHT * 0.5});
+  const [sliderPosition, setSliderPosition] = useState({ x: SCREEN_WIDTH - 32, y: SCREEN_HEIGHT * 0.5 });
+  const [activeMenuItem, setActiveMenuItem] = useState('LOADING...');
 
   const handleSliderClick = () => {
     console.log("Slider clicked")
   }
 
   const handleSliderMove = (x: number, y: number) => {
-    setSliderPosition({x,y});
+    setSliderPosition({ x, y });
   }
   // When the user clicks the "X" button on the menu or
   // clicks on the map while the menu is open, then the
@@ -36,11 +37,12 @@ function App() {
 
   return (
     <>
-    
-      {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
-      <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
-      <MainContent requestedPosition={sliderPosition} />
-      <Leaflet onMenuClick={(actor: string) => handleMenuStateChange(actor)} /> 
+      <MenuContext.Provider value={{ activeMenuItem, setActiveMenuItem }}>
+        {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
+        <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
+        <MainContent requestedPosition={sliderPosition} />
+        <Leaflet onMenuClick={(actor: string) => handleMenuStateChange(actor)} />
+      </MenuContext.Provider>
     </>
   )
 }
