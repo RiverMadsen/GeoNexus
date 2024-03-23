@@ -49,7 +49,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
             </div>
             <div className='font-sans absolute  overflow-y-scroll z-1002 py-6 px-4  h-screen w-10/12 md:w-2/6 border-r-2 sm:border-nex-blue md:border-none bg-gradient-to-r from-black via-black/90 to-nex-dark-gray/70'>
                 <h2 className=' text-5xl'><span className='px-1 bg-nex-blue rounded-lg text-black'>Geo</span><span className='text-nex-green ml-1'>Nexus</span></h2>
-                <h4 className='mt-1 italic text-sm text-nex-dark-white'>Tech Meets Adventure</h4>
+                <h4 className='mt-1 italic text-[.6rem] text-nex-dark-white uppercase' >Adventure Begins Where the Trail Ends</h4>
                 <div className="menuClose">
                     <button className="hover:text-transparent absolute top-0 right-0 m-4 p-1 bg-transparent" onClick={onMenuClose}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-nex-red border-2 rounded-md border-nex-yellow">
