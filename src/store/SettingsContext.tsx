@@ -31,12 +31,11 @@ const SettingsContext = createContext<{
 }>({ state: { units: 'metric' }, dispatch: () => null });
 
 // Component to provide the settings context
-export const SettingsProvider: React.FC = ({ children }) => {
+export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(settingsReducer, { units: 'metric' });
 
   useEffect(() => {
-    // Persist state changes to IndexedDB
-    // Example: saveSettingsToIndexedDB(state);
+    console.log("Settings changed:", state  );
   }, [state]);
 
   return (

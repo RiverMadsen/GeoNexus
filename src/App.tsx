@@ -6,6 +6,7 @@ import './tailwind.css';
 import MainContent from './MainContent';
 import MapSlider from './MapSlider'
 import { MenuContext } from './store/MenuContext';
+import { SettingsProvider } from './store/SettingsContext';
 
 function App() {
   const SCREEN_HEIGHT = window.innerHeight;
@@ -21,12 +22,14 @@ function App() {
   const handleSliderMove = (x: number, y: number) => {
     setSliderPosition({ x, y });
   }
+  
   // When the user clicks the "X" button on the menu or
   // clicks on the map while the menu is open, then the
   // menu should close. When the user clicks on the menu
   // button (aka "burger button"), then the menu should
   // toggle its state.
   const handleMenuStateChange = (actor: string) => {
+    console.log("handleMenuStateChange")
     if (actor === "menu") {
       setMenuOpen(prevState => !prevState);
     }
@@ -37,12 +40,15 @@ function App() {
 
   return (
     <>
-      <MenuContext.Provider value={{ activeMenuItem, isMenuOpen:menuOpen, setActiveMenuItem }}>
-        {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
-        <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
-        <MainContent requestedPosition={sliderPosition} />
-        <Leaflet onMenuClick={(actor: string) => handleMenuStateChange(actor)} />
-      </MenuContext.Provider>
+      <SettingsProvider>
+        <MenuContext.Provider value={{ activeMenuItem, isMenuOpen: menuOpen, setActiveMenuItem }}>
+          {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
+          <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
+          <MainContent requestedPosition={sliderPosition} />
+
+          <Leaflet onMenuClick={(actor: string) => handleMenuStateChange(actor)} />
+        </MenuContext.Provider>
+      </SettingsProvider>
     </>
   )
 }
