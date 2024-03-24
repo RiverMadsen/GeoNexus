@@ -10,31 +10,30 @@ import { LuGlasses } from "react-icons/lu";
 import { FiShare2 } from "react-icons/fi";
 import { TiFolderOpen } from "react-icons/ti";
 import { BsPinMapFill } from "react-icons/bs";
+import { useContext } from "react";
+import { MenuContext } from "./store/MenuContext";
 
 interface MenuProps {
     onMenuClose: () => void;
 }
 const menuItems = [
-    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red", component: "OpenRoute"},
-    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange", component: "TakeAreaOffline"},
-    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow", component: "OpenRoute"},
-    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green", component: "OpenRoute"},
-    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple", component: "OpenRoute"},
-    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red", component: "OpenRoute"},
-    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange" , component: "OpenRoute"},
-    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green", component: "OpenRoute"},
-    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
-    { id: 11, name: "Share Route", icon: <FiShare2 />, color: "nex-orange", component: "OpenRoute"},
-    { id: 12, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green" , component: "OpenRoute"},
-    { id: 13, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue" , component: "OpenRoute"},
-    { id: 14, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple" , component: "OpenRoute"},
-
-]
+    { id: 0, name: "Open a Route", icon: <TiFolderOpen />, color: "nex-red", component: "OpenRoute" },
+    { id: 1, name: "Take Area Offline", icon: <FaDrawPolygon />, color: "nex-orange", component: "TakeAreaOffline" },
+    { id: 2, name: "Sketch a Route", icon: <BsPencil />, color: "nex-yellow", component: "SketchRoute" },
+    { id: 3, name: "Record a Route", icon: <BsRecordCircle />, color: "nex-green", component: "RecordRoute" },
+    { id: 4, name: "Create Waypoint", icon: <BsPinMapFill />, color: "nex-blue", component: "CreateWaypoint" },
+    { id: 5, name: "View Elevation Profile", icon: <LuMountainSnow />, color: "nex-purple", component: "ViewElevationProfile" },
+    { id: 6, name: "Navigate to Route", icon: <ImCompass />, color: "nex-red", component: "NavigateToRoute" },
+    { id: 7, name: "Share Route", icon: <FiShare2 />, color: "nex-orange", component: "ShareRoute" },
+    { id: 8, name: "Settings", icon: <IoSettingsOutline />, color: "nex-green", component: "Settings" },
+    { id: 9, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue", component: "Help" },
+    { id: 10, name: "Geek Zone", icon: <LuGlasses />, color: "nex-purple", component: "GeekZone" }];
+    
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
-    const handleMenuItemClick = (component: string) => {
-        console.log(component);
+    const {setActiveMenuItem} =  useContext(MenuContext);
+    const handleMenuItemClick = (component: string ) => {
+        
+        setActiveMenuItem(component);
     }
     return (
         <>
@@ -52,7 +51,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                 <h4 className='mt-1 italic text-[.6rem] text-nex-dark-white uppercase' >Adventure Begins Where the Trail Ends</h4>
                 <div className="menuClose">
                     <button className="hover:text-transparent absolute top-0 right-0 m-4 p-1 bg-transparent" onClick={onMenuClose}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-nex-red border-2 rounded-md border-nex-yellow">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6 text-nex-yellow rounded-md">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
