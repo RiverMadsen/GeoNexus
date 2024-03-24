@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import './ToggleSwitch.css'; // Assume you have some basic styling for the toggle
 import { useSettings } from './store/SettingsContext';
 
@@ -10,8 +10,6 @@ const ToggleSwitch = () => {
         setIsActive(!isActive);
         dispatch({ type: 'SET_UNITS', payload: newUnit });
     };
-
-
 
     return (
         <label className="toggle-switch">

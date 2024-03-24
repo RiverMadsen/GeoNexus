@@ -4,5 +4,5 @@ import  { createContext } from 'react';
 export const MenuContext = createContext({
     activeMenuItem: '',
     isMenuOpen: false,
-    setActiveMenuItem: (value: string) => {},
+    setActiveMenuItem: (_: string) => {},
 });
