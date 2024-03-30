@@ -9,6 +9,7 @@ interface GeekZoneProps {
 const GeekZone: React.FC<GeekZoneProps> = () => {
     
     const { state } = useSettings();
+    
     return (
         <div>
             <h1>Geek Zone</h1>

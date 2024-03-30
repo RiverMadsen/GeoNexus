@@ -24,7 +24,7 @@ const MainContent: React.FC<MainContentProps> = ({requestedPosition }) => {
 
     return (
         <>
-            <div style={{top: `${requestedPosition.y}px`, opacity:`${(requestedPosition.x / SCREEN_WIDTH)+.05}`, height: `${SCREEN_HEIGHT - requestedPosition.y}px`}} className={`w-full h-1/2 absolute bottom-0 p-4  border-t-2 border-nex-blue bg-black z-1000`}>
+            <div style={{top: `${requestedPosition.y}px`,  opacity:`${(requestedPosition.x / SCREEN_WIDTH)+.05}`, height: `${SCREEN_HEIGHT - requestedPosition.y}px`}} className={`w-full h-1/2 absolute bottom-0 p-4 overflow-y-scroll border-t-2 border-nex-blue bg-black z-1000`}>
                 {activeMenuItem === 'LOADING...' && <h1 className='text-nex-green'>LOADING...</h1>}
                 {activeMenuItem === 'Settings' && <Settings />}
                 {activeMenuItem === 'OpenRoute' && <OpenRoute />}

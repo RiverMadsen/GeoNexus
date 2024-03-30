@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import './ToggleSwitch.css'; // Assume you have some basic styling for the toggle
-import { useSettings } from './store/SettingsContext';
+import { SettingsActionTypes, useSettings } from './store/SettingsContext';
 
 const ToggleSwitch = () => {
     const [isActive, setIsActive] = useState(false);
@@ -8,7 +8,7 @@ const ToggleSwitch = () => {
 
     const handleUnitChange = (newUnit: 'metric' | 'english') => {
         setIsActive(!isActive);
-        dispatch({ type: 'SET_UNITS', payload: newUnit });
+        dispatch({ type: SettingsActionTypes.SET_UNITS, payload: newUnit });
     };
 
     return (

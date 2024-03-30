@@ -32,8 +32,8 @@ const menuItems = [
 const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
     const {setActiveMenuItem} =  useContext(MenuContext);
     const handleMenuItemClick = (component: string ) => {
-        
         setActiveMenuItem(component);
+        onMenuClose();
     }
     return (
         <>
@@ -61,9 +61,9 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                         {
                             menuItems.map((item) => {
                                 return (
-                                    <li key={item.id} className="border-b-2 py-4 border-nex-dark-gray flex items-center ">
+                                    <li key={item.id} className="border-b-2 py-4 border-nex-dark-gray flex items-center cursor-pointer" onClick={() => handleMenuItemClick(item.component)}>
                                         <div className={`text-${item.color} mr-2 text-2xl`}>{item.icon}</div>
-                                        <a className='text-nex-dark-white font-normal  ' onClick={() => handleMenuItemClick(item.component)}>{item.name}</a>
+                                        <a className='text-nex-dark-white font-normal  ' >{item.name}</a>
                                     </li>
                                 )
                             })

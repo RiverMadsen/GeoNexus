@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 interface MapSliderProps {
@@ -10,7 +10,7 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
     const [sliderPosition, setSliderPosition] = useState({ x: 0, y: 0 });
     const SCREEN_HEIGHT = window.innerHeight;
     const SCREEN_WIDTH = window.innerWidth;
-
+    const slider = useRef(null);
     useEffect(() => {
         //Set the slider position equal to 50% of the screen height for the y-axis and 95% of the screen width
         // for the x-axis
@@ -22,11 +22,17 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
     const handleMouseDown = () => {
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
+        if (slider.current) {
+            (slider.current as HTMLDivElement).style.cursor = 'grabbing';
+        }
     }
 
     const handleMouseUp = () => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
+        if (slider.current) {
+            (slider.current as HTMLDivElement).style.cursor = 'grab';
+        }
     }
 
     const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -68,11 +74,11 @@ const MapSlider: React.FC<MapSliderProps> = ({ onSlide, onClick }) => {
 
     return (
         <>
-            <div style={{ top: sliderPosition.y - 24, left: sliderPosition.x }}
+            <div ref={slider} style={{ top: sliderPosition.y - 24, left: sliderPosition.x }}
                 onTouchMove={handleTouchMove}
                 onClick={onClick}
                 onMouseDown={handleMouseDown}
-                className='z-1001 absolute w-[32px] text-black h-[48px] opacity-50 border-nex-blue border-2 bg-nex-green rounded-md '>
+                className='cursor-grab z-1001 absolute w-[32px] text-black h-[48px] opacity-50 border-nex-blue border-2 bg-nex-green rounded-md '>
 
             </div>
         </>
