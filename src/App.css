@@ -69,3 +69,6 @@ h2 {
   color:hsl(190, 100%, 50%);
   margin-bottom:10px !important;
 }
+.react-colorful{
+  width: 100% !important;
+}
