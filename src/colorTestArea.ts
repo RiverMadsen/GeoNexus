@@ -1,8 +1,5 @@
-import { useSettings } from './store/SettingsContext';
-import React from 'react';
-import { Circle, LatLngTuple } from 'leaflet';
+import { LatLngTuple } from 'leaflet';
 import { SettingsState } from './store/SettingsContext';
-
 
 let compassCircle: any = null
 let activeRouteLine: any = null

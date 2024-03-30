@@ -11,7 +11,6 @@ interface SettingsProps {
 const Settings: React.FC<SettingsProps> = () => {
     const {state, dispatch} = useSettings();
 
-    const [color, setColor] = useState("#aabbcc");
     const [mapColors, setMapColors] = useState({
         'BACKGROUND': state.background,
         'ACTIVE_ROUTE': state.activeRoute,

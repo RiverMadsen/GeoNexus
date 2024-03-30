@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState} from 'react';
-import L, { map } from 'leaflet'; // Import Leaflet library
+import L  from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
 import { useSettings } from './store/SettingsContext';
