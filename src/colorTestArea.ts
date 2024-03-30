@@ -11,8 +11,8 @@ let navVectorLine: any = null
 let offlineArea: any = null
 export function drawColorTestArea(L: any, mapInstance: any, settingsState: SettingsState) {
   ///debugger;
-  const baseLat = 48.99;//49.36;
-  const baseLng = -114.05;//-114.33;
+  const baseLat = 49.12;//49.36;
+  const baseLng = -115.27;//-114.33;
   const firstPoint = [baseLat, baseLng];
   const activeRoute = [[baseLat + .014, baseLng - .01], [baseLat + .014, baseLng + .07]];
   const activeRouteLL = activeRoute.map(coord => L.latLng(coord[0], coord[1]));
@@ -51,6 +51,7 @@ export function drawColorTestArea(L: any, mapInstance: any, settingsState: Setti
     offlineArea = L.polygon(convertedCoords, polyOptions).addTo(mapInstance.current);
   }
   else {
+    console.log("offlineArea exists")
     offlineArea.setStyle({ fillColor: settingsState.background });
   }
   //ACTIVE ROUTE

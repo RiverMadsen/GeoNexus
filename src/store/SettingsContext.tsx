@@ -56,6 +56,7 @@ function settingsReducer(state: SettingsState, action: SettingsAction): Settings
     case SettingsActionTypes.COMPASS:
       return { ...state, compass: action.payload };
     case SettingsActionTypes.BACKGROUND:
+      console.log("setting background to: ", action.payload)
       return { ...state, background: action.payload };
     case SettingsActionTypes.ACTIVE_ROUTE:
       return { ...state, activeRoute: action.payload };
@@ -76,7 +77,7 @@ const SettingsContext = createContext<{
 
 // Component to provide the settings context
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(settingsReducer, { units: 'metric', nonActiveRoute: '#00FF00', background: '#FF0000', activeRoute: '#0000FF', navigationVector: '#FFFF00', compass: '#FF00FF' });
+  const [state, dispatch] = useReducer(settingsReducer, { units: 'metric', nonActiveRoute: '#FFFFFF', background: '#000000', activeRoute: '#0000FF', navigationVector: '#FFFF00', compass: '#FF00FF' });
 
   useEffect(() => {
     console.log("Settings changed:", state);

@@ -13,11 +13,11 @@ const Settings: React.FC<SettingsProps> = () => {
 
     const [color, setColor] = useState("#aabbcc");
     const [mapColors, setMapColors] = useState({
-        'BACKGROUND': '#FFFF00',
-        'ACTIVE_ROUTE': '#22FF00',
-        'NON-ACTIVE_ROUTE': '#FF7744',
-        'COMPASS': '#00FFFF',
-        'NAVIGATION_VECTOR': '#FF00FF',
+        'BACKGROUND': state.background,
+        'ACTIVE_ROUTE': state.activeRoute,
+        'NON_ACTIVE_ROUTE': state.nonActiveRoute,
+        'COMPASS': state.compass,
+        'NAVIGATION_VECTOR': state.navigationVector,
     });
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
     const [activeColorPatch, setActiveColorPatch] = useState<SettingsActionTypes> (SettingsActionTypes.ACTIVE_ROUTE);
@@ -52,30 +52,30 @@ const Settings: React.FC<SettingsProps> = () => {
                     <div className="flex flex-col items-start gap-2">
                         <div className="flex items-center gap-2">
                             <label htmlFor="colorPicker" className="text-sm font-normal text-ent-white">Offline Area Background Color:</label>
-                            <button style={{ backgroundColor: mapColors.BACKGROUND }} onClick={() => handleColorPatchClick(SettingsActionTypes.BACKGROUND)} id="colorPicker" className="w-10 h-10 rounded-full "></button>
+                            <button style={{ backgroundColor: mapColors.BACKGROUND }} onClick={() => handleColorPatchClick(SettingsActionTypes.BACKGROUND)} id="colorPicker" className="w-10 h-10 rounded-full border border-white "></button>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                             <label htmlFor="colorPicker" className="text-sm font-normal text-ent-white">Active Route:</label>
-                            <button style={{ backgroundColor: mapColors.ACTIVE_ROUTE }} onClick={() => handleColorPatchClick(SettingsActionTypes.ACTIVE_ROUTE)} id="colorPicker" className="w-10 h-10 rounded-full "></button>
+                            <button style={{ backgroundColor: mapColors.ACTIVE_ROUTE }} onClick={() => handleColorPatchClick(SettingsActionTypes.ACTIVE_ROUTE)} id="colorPicker" className="w-10 h-10 rounded-full  border  border-white"></button>
                         </div>
                         <div className="flex items-center gap-2">
                             <label htmlFor="colorPicker" className="text-sm font-normal text-ent-white">Non-Active Routes:</label>
-                            <button style={{ backgroundColor: mapColors['NON-ACTIVE_ROUTE'] }} onClick={() => handleColorPatchClick(SettingsActionTypes.NON_ACTIVE_ROUTE)} id="colorPicker" className="w-10 h-10 rounded-full "></button>
+                            <button style={{ backgroundColor: mapColors['NON_ACTIVE_ROUTE'] }} onClick={() => handleColorPatchClick(SettingsActionTypes.NON_ACTIVE_ROUTE)} id="colorPicker" className="w-10 h-10 rounded-full border border-white "></button>
                         </div>
                         <div className="flex items-center gap-2">
                             <label htmlFor="colorPicker" className="text-sm font-normal text-ent-white">Compass:</label>
-                            <button style={{ backgroundColor: mapColors.COMPASS }} onClick={() => handleColorPatchClick(SettingsActionTypes.COMPASS)} id="colorPicker" className="w-10 h-10 rounded-full "></button>
+                            <button style={{ backgroundColor: mapColors.COMPASS }} onClick={() => handleColorPatchClick(SettingsActionTypes.COMPASS)} id="colorPicker" className="w-10 h-10 rounded-full border  border-white"></button>
                         </div>
                         <div className="flex items-center gap-2">
                             <label htmlFor="colorPicker" className="text-sm font-normal text-ent-white">Navigation Vector:</label>
-                            <button style={{ backgroundColor: mapColors.NAVIGATION_VECTOR }} onClick={() => handleColorPatchClick(SettingsActionTypes.NAVIGATION_VECTOR)} id="colorPicker" className="w-10 h-10 rounded-full "></button>
+                            <button style={{ backgroundColor: mapColors.NAVIGATION_VECTOR }} onClick={() => handleColorPatchClick(SettingsActionTypes.NAVIGATION_VECTOR)} id="colorPicker" className="w-10 h-10 rounded-full border border-white "></button>
                         </div>
                     </div>}
                 <div className='absolute w-full '>
                     {displayColorPicker &&
                         <div >
                             <div className='relative'></div>
-                            <HexColorPicker color={color} onChange={handleChangeColor} />
+                            <HexColorPicker color={mapColors[activeColorPatch as keyof typeof mapColors]} onChange={handleChangeColor} />
                             <div className='absolute  top-[-16px] w-[24px] h-[24px] rounded-md bg-white text-center right-0 text-black text-[16px]' onClick={() => setDisplayColorPicker(false)}>X</div>
                         </div>}
                 </div>

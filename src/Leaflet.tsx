@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import L, { map } from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
@@ -11,7 +11,8 @@ interface LeafletProps {
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null); // Store the map instance
-  const { state, dispatch } = useSettings();
+  const { state  } = useSettings();
+  const [tileLayerLoaded, setTileLayerLoaded] = useState(false);
 
   useEffect(() => {
     console.log("Leaflet.tsx use effect");
@@ -37,7 +38,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
         attribution: '&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
       }).addTo(mapInstance.current).addEventListener('load', () => {
         drawColorTestArea(L, mapInstance, state);
-        //debugger;
+        setTileLayerLoaded(true);
       });
     }
  
@@ -48,18 +49,8 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
         drawColorTestArea(L, mapInstance, state);
         onMenuClick("map");
       });
-
-      // mapInstance.current.on('layeradd', () => {
-      //   console.log("layer added")
-      //   debugger;
-      // });
-
-      mapInstance.current.whenReady(() => {
-        console.log("READY")
-        //debugger;
-        //drawColorTestArea(L, mapInstance, state);
-      });
     }
+
 
     // Clean up function to avoid memory leaks and issues when the component unmounts
     return () => {
@@ -71,6 +62,10 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   }, []);
 
   useEffect(() => {
+    //debugger;
+    if(tileLayerLoaded){
+      drawColorTestArea(L, mapInstance, state);
+    }
     //drawColorTestArea(L, mapInstance,state);
     //console.log("Leaflet.tsx use effect 2");
   }, [state])
