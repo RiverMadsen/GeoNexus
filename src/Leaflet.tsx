@@ -37,8 +37,12 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
       }).addTo(mapInstance.current).addEventListener('load', () => {
-        drawColorTestArea(L, mapInstance, state);
-        setTileLayerLoaded(true);
+        if(tileLayerLoaded === false){
+          console.log("drawColorTestArea - Tile layer loaded");
+          //drawColorTestArea(L, mapInstance, state);
+          setTileLayerLoaded(true);
+        }
+
       });
     }
  
@@ -46,7 +50,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     if (mapInstance.current !== null) {
       mapInstance.current.on('click', () => {
         console.log("click map")
-        drawColorTestArea(L, mapInstance, state);
+        //drawColorTestArea(L, mapInstance, state);
         onMenuClick("map");
       });
     }
@@ -59,11 +63,12 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
         mapInstance.current = null;
       }
     };
-  }, []);
+  }, [tileLayerLoaded]);
 
   useEffect(() => {
-    //debugger;
+    //console.log("state changed")
     if(tileLayerLoaded){
+      console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
     //drawColorTestArea(L, mapInstance,state);
