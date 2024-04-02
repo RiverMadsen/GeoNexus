@@ -94,4 +94,5 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   // return <div ref={mapRef} style={{ height: '100vh', width: '100vw' }} />;
 };
 
-export default Leaflet;
+// GEEK - Memoized the component to avoid re-rendering
+export default React.memo(Leaflet);

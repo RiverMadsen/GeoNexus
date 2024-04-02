@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import ToggleSwitch from './ToggleSwitch';
 import { HexColorPicker } from "react-colorful";
 import { useSettings,SettingsActionTypes } from './store/SettingsContext';
@@ -9,7 +9,10 @@ interface SettingsProps {
 }
 
 const Settings: React.FC<SettingsProps> = () => {
+    console.log("**SETTINGS**")
     const {state, dispatch} = useSettings();
+    //debugger;
+    //const memoizedDispatch = useCallback(dispatch, []);
 
     const [mapColors, setMapColors] = useState({
         'BACKGROUND': state.background,
@@ -31,7 +34,6 @@ const Settings: React.FC<SettingsProps> = () => {
         console.log("setting " + activeColorPatch + " to " + color);
         setMapColors({ ...mapColors, [activeColorPatch]: color + 'aa' });
         dispatch({type: activeColorPatch, payload: color});
-
     }
 
     return (
@@ -84,4 +86,4 @@ const Settings: React.FC<SettingsProps> = () => {
     );
 }
 
-export default Settings;
+export default React.memo(Settings);
