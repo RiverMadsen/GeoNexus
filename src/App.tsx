@@ -45,7 +45,6 @@ function App() {
           {menuOpen && <Menu onMenuClose={() => setMenuOpen(false)} />}
           <MapSlider onClick={handleSliderClick} onSlide={handleSliderMove} />
           <MainContent requestedPosition={sliderPosition} />
-
           <Leaflet onMenuClick={(actor: string) => handleMenuStateChange(actor)} />
         </MenuContext.Provider>
       </SettingsProvider>

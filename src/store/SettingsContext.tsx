@@ -1,4 +1,6 @@
-import React, { createContext, useReducer, useEffect, useContext } from 'react';
+import React, { createContext, useReducer, useMemo, useEffect, useContext } from 'react';
+
+
 
 // Define the shape of your settings state
 export type SettingsState = {
@@ -29,23 +31,6 @@ type SettingsAction = {
     type: SettingsActionTypes;
     payload:string;
   };
-  // | {
-  //   type:SettingsActionTypes.BACKGROUND;
-  //   payload: string;
-  // }
-  // | {
-  //   type:SettingsActionTypes.ACTIVE_ROUTE;
-  //   payload: string;
-  // }
-  // | {
-  //   type: SettingsActionTypes.NON_ACTIVE_ROUTE;
-  //   payload:string;
-  // }
-  // | {
-  //   type:SettingsActionTypes.NAVIGATION_VECTOR;
-  //   payload: string;
-  // }
-  //;
 
 // Reducer function to handle state changes
 function settingsReducer(state: SettingsState, action: SettingsAction): SettingsState {
@@ -83,8 +68,13 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     console.log("Settings changed:", state);
   }, [state]);
 
+  // Geek zone - note the use of value here is a memoized value
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
+
+  // Geek zone - note the use of value here is a memoized value
   return (
-    <SettingsContext.Provider value={{ state, dispatch }}>
+    <SettingsContext.Provider value={value}>
       {children}
     </SettingsContext.Provider>
   );
