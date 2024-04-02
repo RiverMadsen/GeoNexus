@@ -73,6 +73,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
+    //test
     //drawColorTestArea(L, mapInstance,state);
     //console.log("Leaflet.tsx use effect 2");
   }, [state])
