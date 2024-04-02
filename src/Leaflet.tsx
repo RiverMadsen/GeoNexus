@@ -90,6 +90,30 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
         if (mapInstance.current) {
           const currentZoom = mapInstance.current.getZoom();
           mapInstance.current.flyTo([latitude, longitude], currentZoom);
+  
+          // Create a new marker and add it to the map
+          let marker = L.circleMarker([latitude, longitude], {
+            color: 'green',
+            fillColor: 'green',
+            fillOpacity: 1,
+            radius: 10
+          });
+          marker.addTo(mapInstance.current);
+  
+          // Change color to yellow after 1 minute
+          setTimeout(() => {
+            marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+          }, 60000);
+  
+          // Change color to orange after 2 minutes
+          setTimeout(() => {
+            marker.setStyle({ color: 'orange', fillColor: 'orange' });
+          }, 120000);
+  
+          // Change color to red after 3 minutes
+          setTimeout(() => {
+            marker.setStyle({ color: 'red', fillColor: 'red' });
+          }, 180000);
         }
       }, (error) => {
         console.error('Error getting location', error);
