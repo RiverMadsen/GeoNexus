@@ -88,7 +88,8 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         if (mapInstance.current) {
-          mapInstance.current.flyTo([latitude, longitude], 13); // 13 is the zoom level
+          const currentZoom = mapInstance.current.getZoom();
+          mapInstance.current.flyTo([latitude, longitude], currentZoom);
         }
       }, (error) => {
         console.error('Error getting location', error);
