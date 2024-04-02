@@ -73,6 +73,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
+    //test
     //drawColorTestArea(L, mapInstance,state);
     //console.log("Leaflet.tsx use effect 2");
   }, [state])
@@ -82,14 +83,45 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     onMenuClick("menu");
   }
 
+  let timeoutIds: number[] = [];
+
   const zoomToLocation = () => {
+    // Clear existing timeouts
+    timeoutIds.forEach(id => clearTimeout(id));
+    timeoutIds = [];
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
         if (mapInstance.current) {
-          mapInstance.current.flyTo([latitude, longitude], 13); // 13 is the zoom level
+          const currentZoom = mapInstance.current.getZoom();
+          mapInstance.current.flyTo([latitude, longitude], currentZoom);
+
+          // Create a new marker and add it to the map
+          let marker = L.circleMarker([latitude, longitude], {
+            color: 'green',
+            fillColor: 'green',
+            fillOpacity: 1,
+            radius: 10
+          });
+          marker.addTo(mapInstance.current);
+
+          // Change color to yellow after 1 minute
+          timeoutIds.push(window.setTimeout(() => {
+            marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+          }, 60000));
+
+          // Change color to orange after 2 minutes
+          timeoutIds.push(window.setTimeout(() => {
+            marker.setStyle({ color: 'orange', fillColor: 'orange' });
+          }, 120000));
+
+          // Change color to red after 3 minutes
+          timeoutIds.push(window.setTimeout(() => {
+            marker.setStyle({ color: 'red', fillColor: 'red' });
+          }, 180000));
         }
-      }, (error) => {
+      }, (error: GeolocationPositionError) => {
         console.error('Error getting location', error);
       });
     } else {
@@ -106,7 +138,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <button onClick={zoomToLocation} style={{color:'var(--nex-black)'}} className="absolute top-0 left-0 m-4 text-4xl 
+      <button onClick={zoomToLocation} style={{ color: 'var(--nex-black)' }} className="absolute top-0 left-0 m-4 text-4xl 
       bg-transparent text-black p-2 rounded z-1000 outline-none focus:outline-none">
         <MdGpsNotFixed />
       </button>
