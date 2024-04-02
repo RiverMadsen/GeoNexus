@@ -93,7 +93,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
         console.error('Error getting location', error);
       });
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error('Geolocation not supported by this browser.');
     }
   }
 
