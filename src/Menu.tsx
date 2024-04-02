@@ -58,7 +58,7 @@ const Menu: React.FC<MenuProps> = ({ onMenuClose }) => {
                         </svg>
                     </button>
                 </div>
-                <nav className="mt-10">
+                <nav className="mt-10 pb-20">
                     <ul>
                         {
                             menuItems.map((item) => {
