@@ -84,11 +84,18 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   }
 
   let timeoutIds: number[] = [];
+  let marker: L.CircleMarker | null = null;
 
   const zoomToLocation = () => {
     // Clear existing timeouts
     timeoutIds.forEach(id => clearTimeout(id));
     timeoutIds = [];
+
+    // Remove existing marker
+    if (marker) {
+      marker.remove();
+      marker = null;
+    }
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
@@ -98,7 +105,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
           mapInstance.current.flyTo([latitude, longitude], currentZoom);
 
           // Create a new marker and add it to the map
-          let marker = L.circleMarker([latitude, longitude], {
+          marker = L.circleMarker([latitude, longitude], {
             color: 'green',
             fillColor: 'green',
             fillOpacity: 1,
@@ -108,17 +115,17 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
           // Change color to yellow after 1 minute
           timeoutIds.push(window.setTimeout(() => {
-            marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+            if (marker) marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
           }, 60000));
 
           // Change color to orange after 2 minutes
           timeoutIds.push(window.setTimeout(() => {
-            marker.setStyle({ color: 'orange', fillColor: 'orange' });
+            if (marker) marker.setStyle({ color: 'orange', fillColor: 'orange' });
           }, 120000));
 
           // Change color to red after 3 minutes
           timeoutIds.push(window.setTimeout(() => {
-            marker.setStyle({ color: 'red', fillColor: 'red' });
+            if (marker) marker.setStyle({ color: 'red', fillColor: 'red' });
           }, 180000));
         }
       }, (error: GeolocationPositionError) => {
