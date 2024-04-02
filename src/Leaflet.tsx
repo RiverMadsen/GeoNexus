@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState} from 'react';
-import L  from 'leaflet'; // Import Leaflet library
+import React, { useEffect, useRef, useState } from 'react';
+import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
 import { useSettings } from './store/SettingsContext';
+import { MdGpsNotFixed } from "react-icons/md";
+
 
 interface LeafletProps {
   onMenuClick: (actor: string) => void;
@@ -11,7 +13,7 @@ interface LeafletProps {
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null); // Store the map instance
-  const { state  } = useSettings();
+  const { state } = useSettings();
   const [tileLayerLoaded, setTileLayerLoaded] = useState(false);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
       }).addTo(mapInstance.current).addEventListener('load', () => {
-        if(tileLayerLoaded === false){
+        if (tileLayerLoaded === false) {
           console.log("drawColorTestArea - Tile layer loaded");
           //drawColorTestArea(L, mapInstance, state);
           setTileLayerLoaded(true);
@@ -45,7 +47,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
       });
     }
- 
+
     // Add click event listener
     if (mapInstance.current !== null) {
       mapInstance.current.on('click', () => {
@@ -67,7 +69,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
   useEffect(() => {
     //console.log("state changed")
-    if(tileLayerLoaded){
+    if (tileLayerLoaded) {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
@@ -80,6 +82,21 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     onMenuClick("menu");
   }
 
+  const zoomToLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        if (mapInstance.current) {
+          mapInstance.current.flyTo([latitude, longitude], 13); // 13 is the zoom level
+        }
+      }, (error) => {
+        console.error('Error getting location', error);
+      });
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
+
   return (
     <div className="relative h-screen w-screen">
       <div ref={mapRef} className="absolute top-0 left-0 h-full w-full" />
@@ -89,10 +106,15 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
+      <button onClick={zoomToLocation} style={{color:'var(--nex-black)'}} className="absolute top-0 left-0 m-4 text-4xl 
+      bg-transparent text-black p-2 rounded z-1000 outline-none focus:outline-none">
+        <MdGpsNotFixed />
+      </button>
     </div>
   );
-  // return <div ref={mapRef} style={{ height: '100vh', width: '100vw' }} />;
+
 };
+
 
 // GEEK - Memoized the component to avoid re-rendering
 export default React.memo(Leaflet);
