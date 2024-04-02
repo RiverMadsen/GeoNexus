@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import ToggleSwitch from './ToggleSwitch';
 import { HexColorPicker } from "react-colorful";
 import { useSettings,SettingsActionTypes } from './store/SettingsContext';
