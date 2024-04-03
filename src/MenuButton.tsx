@@ -1,9 +1,6 @@
 import { MdOutlineMenu } from "react-icons/md";
 
-import { useMap } from 'react-leaflet';
-
 export const MenuButton = ({ onClick }: { onClick: () => void }) => {
-  const map = useMap();
 
   const handleClick = () => {
     onClick();
