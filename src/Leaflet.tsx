@@ -84,57 +84,120 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   }
 
   let timeoutIds: number[] = [];
-  let marker: L.CircleMarker | null = null;
+let marker: L.CircleMarker | null = null;
+let requestPending: boolean = false;
 
-  const zoomToLocation = () => {
-    // Clear existing timeouts
-    timeoutIds.forEach(id => clearTimeout(id));
-    timeoutIds = [];
+const zoomToLocation = () => {
+  // Clear existing timeouts
+  timeoutIds.forEach(id => clearTimeout(id));
+  timeoutIds = [];
 
-    // Remove existing marker
-    if (marker) {
-      marker.remove();
-      marker = null;
-    }
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-        const { latitude, longitude } = position.coords;
-        if (mapInstance.current) {
-          const currentZoom = mapInstance.current.getZoom();
-          mapInstance.current.flyTo([latitude, longitude], currentZoom);
-
-          // Create a new marker and add it to the map
-          marker = L.circleMarker([latitude, longitude], {
-            color: 'green',
-            fillColor: 'green',
-            fillOpacity: 1,
-            radius: 10
-          });
-          marker.addTo(mapInstance.current);
-
-          // Change color to yellow after 1 minute
-          timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
-          }, 60000));
-
-          // Change color to orange after 2 minutes
-          timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'orange', fillColor: 'orange' });
-          }, 120000));
-
-          // Change color to red after 3 minutes
-          timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'red', fillColor: 'red' });
-          }, 180000));
-        }
-      }, (error: GeolocationPositionError) => {
-        console.error('Error getting location', error);
-      });
-    } else {
-      console.error('Geolocation not supported by this browser.');
-    }
+  // Remove existing marker
+  if (marker) {
+    marker.remove();
+    marker = null;
   }
+
+  // Set requestPending to true
+  requestPending = true;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+      // If a new request has been made, ignore this one
+      if (!requestPending) return;
+
+      const { latitude, longitude } = position.coords;
+      if (mapInstance.current) {
+        const currentZoom = mapInstance.current.getZoom();
+        mapInstance.current.flyTo([latitude, longitude], currentZoom);
+
+        // Create a new marker and add it to the map
+        marker = L.circleMarker([latitude, longitude], {
+          color: 'green',
+          fillColor: 'green',
+          fillOpacity: 1,
+          radius: 10
+        });
+        marker.addTo(mapInstance.current);
+
+        // Change color to yellow after 1 minute
+        timeoutIds.push(window.setTimeout(() => {
+          if (marker) marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+        }, 60000));
+
+        // Change color to orange after 2 minutes
+        timeoutIds.push(window.setTimeout(() => {
+          if (marker) marker.setStyle({ color: 'orange', fillColor: 'orange' });
+        }, 120000));
+
+        // Change color to red after 3 minutes
+        timeoutIds.push(window.setTimeout(() => {
+          if (marker) marker.setStyle({ color: 'red', fillColor: 'red' });
+        }, 180000));
+
+        // Set requestPending to false
+        requestPending = false;
+      }
+    }, (error: GeolocationPositionError) => {
+      console.error('Error getting location', error);
+    });
+  } else {
+    console.error('Geolocation not supported by this browser.');
+  }
+}
+
+  // let timeoutIds: number[] = [];
+  // let marker: L.CircleMarker | null = null;
+
+  // const zoomToLocation = () => {
+  //   // Clear existing timeouts
+  //   timeoutIds.forEach(id => clearTimeout(id));
+  //   timeoutIds = [];
+
+  //   // Remove existing marker
+  //   if (marker) {
+  //     marker.remove();
+  //     marker = null;
+  //   }
+
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+  //       const { latitude, longitude } = position.coords;
+  //       if (mapInstance.current) {
+  //         const currentZoom = mapInstance.current.getZoom();
+  //         mapInstance.current.flyTo([latitude, longitude], currentZoom);
+
+  //         // Create a new marker and add it to the map
+  //         marker = L.circleMarker([latitude, longitude], {
+  //           color: 'green',
+  //           fillColor: 'green',
+  //           fillOpacity: 1,
+  //           radius: 10
+  //         });
+  //         marker.addTo(mapInstance.current);
+
+  //         // Change color to yellow after 1 minute
+  //         timeoutIds.push(window.setTimeout(() => {
+  //           if (marker) marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+  //         }, 60000));
+
+  //         // Change color to orange after 2 minutes
+  //         timeoutIds.push(window.setTimeout(() => {
+  //           if (marker) marker.setStyle({ color: 'orange', fillColor: 'orange' });
+  //         }, 120000));
+
+  //         // Change color to red after 3 minutes
+  //         timeoutIds.push(window.setTimeout(() => {
+  //           if (marker) marker.setStyle({ color: 'red', fillColor: 'red' });
+  //         }, 180000));
+  //       }
+  //     }, (error: GeolocationPositionError) => {
+  //       console.error('Error getting location', error);
+  //     });
+  //   } else {
+  //     console.error('Geolocation not supported by this browser.');
+  //   }
+  // }
 
   return (
     <div className="relative h-screen w-screen">
