@@ -3,10 +3,15 @@ import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
 import { useSettings } from './store/SettingsContext';
-//import { MdOutlineMenu } from "react-icons/md";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-//import { Icon } from 'leaflet';
-//import currentPositionIco from './assets/position.png';
+import { Icon } from 'leaflet';
+import blueIcon from './assets/map-icons/blue.png';
+import greenIcon from './assets/map-icons/green.png';
+import yellowIcon from './assets/map-icons/yellow.png';
+import orangeIcon from './assets/map-icons/orange.png';
+import redIcon from './assets/map-icons/red.png';
+//import currentPositionIco6 from './assets/map-icons/red.png';
+//import currentPositionIco7 from './assets/map-icons/red.png';
 //import MarkerClusterGroup from 'react-leaflet-cluster';
 import { LocationButton } from './LocationButton';
 import { MenuButton } from './MenuButton';
@@ -16,19 +21,20 @@ interface LeafletProps {
 }
 
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
-  const [position, setPosition] = useState({ lat: 51.505, lng: -0.09, accuracy: 0});
+  const [position, setPosition] = useState({ lat: 51.505, lng: -0.09, accuracy: 0, time: 'unset time' });
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null); // Store the map instance
   const { state } = useSettings();
   const [tileLayerLoaded, setTileLayerLoaded] = useState(false);
-  // const currentPositionIcon = new Icon({
-  //   iconUrl: currentPositionIco,
-  //   iconSize: [32, 32],
-  //   color: 'blue',
-  //   iconAnchor: [12, 41],
-  //   popupAnchor: [1, -34],
-  //   shadowSize: [41, 41]
-  // });
+  let timeAtLastPositionAcquire = new Date().getTime();
+  const [currentPositionIcon, setCurrentPositionIcon] = useState<Icon>(new Icon({
+    iconUrl: blueIcon,
+    iconSize: [32, 32],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  }));
+
   useEffect(() => {
     console.log("Leaflet.tsx use effect");
 
@@ -39,9 +45,6 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       if (mapInstance.current !== null) {
         mapInstance.current.on('load', () => {
           console.log("Map loaded");
-          //debugger;
-          //drawColorTestArea(L, mapInstance, state);
-          //drawColorTestArea(L, mapInstance, state);
         });
       }
       mapInstance.current.setView([49, -114], 13);
@@ -86,95 +89,58 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
-    //test
-    //drawColorTestArea(L, mapInstance,state);
-    //console.log("Leaflet.tsx use effect 2");
   }, [state])
 
+  const constructNextCurrentPositionIcon = ( ) => {
+    let newURL = blueIcon;
+    const elapsedTime = new Date().getTime() - timeAtLastPositionAcquire;
+    if (elapsedTime > 80000) {
+      newURL = redIcon;
+    } else if (elapsedTime > 60000) {
+      newURL = orangeIcon;
+    } else if (elapsedTime > 40000) {
+      newURL = yellowIcon;
+    } else if (elapsedTime > 20000) {
+      newURL = greenIcon;
+    }
+    //console.log("newURL: " + newURL)
+    return new Icon({
+      iconUrl: newURL,
+      iconSize: [32, 32],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+  }
   const openMenu = () => {
     console.log("click menu")
     onMenuClick("menu");
   }
 
-
-
-  // let timeoutIds: number[] = [];
-  // let marker: L.CircleMarker | null = null;
-  // let requestPending: boolean = false;
-
-  // const zoomToLocation = () => {
-  //   // Clear existing timeouts
-  //   timeoutIds.forEach(id => clearTimeout(id));
-  //   timeoutIds = [];
-
-  //   // Remove existing marker
-  //   if (marker !== null) {
-  //     marker.remove();
-  //     marker = null;
-  //   }
-
-  //   // Set requestPending to true
-  //   requestPending = true;
-
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-  //       // If a new request has been made, ignore this one
-  //       if (!requestPending) return;
-
-  //       const { latitude, longitude } = position.coords;
-  //       if (mapInstance.current) {
-  //         const currentZoom = mapInstance.current.getZoom();
-  //         mapInstance.current.flyTo([latitude, longitude], currentZoom);
-
-  //         // Create a new marker and add it to the map
-  //         marker = L.circleMarker([latitude, longitude], {
-  //           color: 'black',
-  //           fillColor: 'blue',
-  //           fillOpacity: 1,
-  //           radius: 10
-  //         });
-  //         marker.addTo(mapInstance.current);
-
-  //         // Change color to green after 30 seconds
-  //         timeoutIds.push(window.setTimeout(() => {
-  //           if (marker) marker.setStyle({ color: 'black', fillColor: 'green' });
-  //         }, 30000));
-
-  //         // Change color to yellow after 1 minute
-  //         timeoutIds.push(window.setTimeout(() => {
-  //           if (marker) marker.setStyle({ color: 'black', fillColor: 'yellow' });
-  //         }, 60000));
-
-  //         // Change color to orange after 2 minutes
-  //         timeoutIds.push(window.setTimeout(() => {
-  //           if (marker) marker.setStyle({ color: 'black', fillColor: 'orange' });
-  //         }, 120000));
-
-  //         // Change color to red after 3 minutes
-  //         timeoutIds.push(window.setTimeout(() => {
-  //           if (marker) marker.setStyle({ color: 'black', fillColor: 'red' });
-  //         }, 180000));
-
-  //         // Set requestPending to false
-  //         requestPending = false;
-  //       }
-  //     }, (error: GeolocationPositionError) => {
-  //       console.error('Error getting location', error);
-  //     });
-  //   } else {
-  //     console.error('Geolocation not supported by this browser.');
-  //   }
-  // }
-
+  let timeoutIds: number[] = [];
   const handlePositionFound = (e: L.LocationEvent) => {
-    //debugger;
+
     const radius = e.accuracy;
     const currentPosition = e.latlng;
+    timeAtLastPositionAcquire = new Date().getTime();
     setPosition(() => {
+      if(timeoutIds.length === 0){
+        timeoutIds.push(window.setInterval(() => {
+          console.log("interval triggered")
+          let nextIcon = constructNextCurrentPositionIcon()
+          if(nextIcon.options.iconUrl === redIcon){
+            window.clearInterval(timeoutIds[0]);
+            console.log("interval cleared")
+          }
+          setCurrentPositionIcon(new Icon(nextIcon.options));
+        }, 2000));
+      }
+
       return {
         lat: currentPosition.lat,
         lng: currentPosition.lng,
-        accuracy: radius
+        accuracy: radius,
+        time: new Date(e.timestamp).toLocaleString()
       }
     })
   }
@@ -189,8 +155,8 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
           <Popup><h2>Hello</h2></Popup>
         </Marker>
         {/* Current Position */}
-        <Marker position={[position.lat, position.lng]} >
-          <Popup><div><h2>{position.lat.toString()},{position.lng.toString()}</h2><p>Accuracy: {Math.round(position.accuracy)}</p></div> </Popup>
+        <Marker position={[position.lat, position.lng]} icon={currentPositionIcon} >
+          <Popup><div><h3>{position.lat.toString()},{position.lng.toString()}</h3><p>TIME: {position.time}</p><p>ACCURACY: {Math.round(position.accuracy)}</p></div> </Popup>
         </Marker>
         <LocationButton onPositionFound={handlePositionFound} />
         <MenuButton onClick={openMenu} />
