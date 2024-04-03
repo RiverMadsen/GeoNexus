@@ -16,7 +16,7 @@ export const LocationButton = ({ onPositionFound }: { onPositionFound: (e: L.Loc
   };
 
   return (
-    <button className='text-4xl ' style={{color:'black', position: 'absolute', top: '10px', left: '10px', zIndex: 1000 }}  onClick={handleClick}>
+    <button className='text-4xl ' style={{color:'var(--nex-red)', position: 'absolute', top: '10px', left: '10px', zIndex: 1000 }}  onClick={handleClick}>
       <MdGpsNotFixed />
     </button>
   );
