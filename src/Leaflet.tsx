@@ -3,19 +3,32 @@ import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
 import { useSettings } from './store/SettingsContext';
-import { MdGpsNotFixed } from "react-icons/md";
-
+import { MdOutlineMenu } from "react-icons/md";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import currentPositionIco from './assets/position.png';
+import MarkerClusterGroup from 'react-leaflet-cluster';
+import { LocationButton } from './LocationButton';
+import { MenuButton } from './MenuButton';
 
 interface LeafletProps {
   onMenuClick: (actor: string) => void;
 }
 
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
+  const [position, setPosition] = useState({ lat: 51.505, lng: -0.09, accuracy: 0});
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null); // Store the map instance
   const { state } = useSettings();
   const [tileLayerLoaded, setTileLayerLoaded] = useState(false);
-
+  const currentPositionIcon = new Icon({
+    iconUrl: currentPositionIco,
+    iconSize: [32, 32],
+    color: 'blue',
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
   useEffect(() => {
     console.log("Leaflet.tsx use effect");
 
@@ -89,7 +102,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   let marker: L.CircleMarker | null = null;
   let requestPending: boolean = false;
 
-  const zoomToLocation =  () => {
+  const zoomToLocation = () => {
     // Clear existing timeouts
     timeoutIds.forEach(id => clearTimeout(id));
     timeoutIds = [];
@@ -153,21 +166,36 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     }
   }
 
+  const handlePositionFound = (e: L.LocationEvent) => {
+    //debugger;
+    const radius = e.accuracy;
+    const currentPosition = e.latlng;
+    setPosition(prevPos => {
+      return {
+        lat: currentPosition.lat,
+        lng: currentPosition.lng,
+        accuracy: radius
+      }
+    })
+  }
 
   return (
-    <div className="relative h-screen w-screen">
-      <div ref={mapRef} className="absolute top-0 left-0 h-full w-full" />
-      <button onClick={openMenu} className="absolute top-0 right-0 m-4 
-      bg-transparent text-black p-2 rounded z-1000 outline-none focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="black" className="h-8 w-8 outline-none focus:outline-none">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-      <button onClick={zoomToLocation} style={{ color: 'var(--nex-black)' }} className="absolute top-0 left-0 m-4 text-4xl 
-      bg-transparent text-black p-2 rounded z-1000 outline-none focus:outline-none">
-        <MdGpsNotFixed />
-      </button>
-    </div>
+    <>
+      <MapContainer center={[49, -114]} zoom={13} style={{ height: '100vh', width: '100vw' }} zoomControl={false} >
+        <TileLayer
+          url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors' />
+        <Marker position={[49, -114]} >
+          <Popup><h2>Hello</h2></Popup>
+        </Marker>
+        {/* Current Position */}
+        <Marker position={[position.lat, position.lng]} >
+          <Popup><div><h2>{position.lat.toString()},{position.lng.toString()}</h2><p>Accuracy: {Math.round(position.accuracy)}</p></div> </Popup>
+        </Marker>
+        <LocationButton onPositionFound={handlePositionFound} />
+        <MenuButton onClick={openMenu} />
+      </MapContainer>
+    </>
   );
 
 };
