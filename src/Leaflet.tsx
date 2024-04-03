@@ -89,7 +89,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   let marker: L.CircleMarker | null = null;
   let requestPending: boolean = false;
 
-  const zoomToLocation = () => {
+  const zoomToLocation =  () => {
     // Clear existing timeouts
     timeoutIds.forEach(id => clearTimeout(id));
     timeoutIds = [];
@@ -115,7 +115,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
           // Create a new marker and add it to the map
           marker = L.circleMarker([latitude, longitude], {
-            color: 'blue',
+            color: 'black',
             fillColor: 'blue',
             fillOpacity: 1,
             radius: 10
@@ -124,22 +124,22 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
 
           // Change color to green after 30 seconds
           timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'green', fillColor: 'yellow' });
+            if (marker) marker.setStyle({ color: 'black', fillColor: 'green' });
           }, 30000));
 
           // Change color to yellow after 1 minute
           timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'yellow', fillColor: 'yellow' });
+            if (marker) marker.setStyle({ color: 'black', fillColor: 'yellow' });
           }, 60000));
 
           // Change color to orange after 2 minutes
           timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'orange', fillColor: 'orange' });
+            if (marker) marker.setStyle({ color: 'black', fillColor: 'orange' });
           }, 120000));
 
           // Change color to red after 3 minutes
           timeoutIds.push(window.setTimeout(() => {
-            if (marker) marker.setStyle({ color: 'red', fillColor: 'red' });
+            if (marker) marker.setStyle({ color: 'black', fillColor: 'red' });
           }, 180000));
 
           // Set requestPending to false
