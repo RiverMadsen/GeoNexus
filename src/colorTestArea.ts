@@ -34,18 +34,20 @@ export function drawColorTestArea(L: any, mapInstance: any, settingsState: Setti
   // COMPASS
   //debugger;
   if (compassCircle === null) {
-    compassCircle = L.circle(firstPointLL, { radius: 1000, fillOpacity: .3, fillColor: settingsState.compass }).addTo(mapInstance.current);
+    //debugger;
+    compassCircle = L.circle(firstPointLL, { radius: 1000, fillOpacity: .3, fillColor: settingsState.compass })
+    compassCircle.addTo(mapInstance);
     //debugger;
     console.log("compassCircle: ", compassCircle._latlng.lat, compassCircle._latlng.lng)
   }
   else {
-    //debugger;
+    //ebugger;
     compassCircle.setStyle({ fillColor: settingsState.compass });
     console.log("compassCircle exists: ", compassCircle._latlng.lat, compassCircle._latlng.lng)
   }
   // OFFLINE AREA
   if (offlineArea === null) {
-    offlineArea = L.polygon(convertedCoords, polyOptions).addTo(mapInstance.current);
+    offlineArea = L.polygon(convertedCoords, polyOptions).addTo(mapInstance);
   }
   else {
     console.log("offlineArea exists")
@@ -53,21 +55,21 @@ export function drawColorTestArea(L: any, mapInstance: any, settingsState: Setti
   }
   //ACTIVE ROUTE
   if (activeRouteLine === null) {
-    activeRouteLine = L.polyline(activeRouteLL, { color: settingsState.activeRoute }).addTo(mapInstance.current);
+    activeRouteLine = L.polyline(activeRouteLL, { color: settingsState.activeRoute }).addTo(mapInstance);
   }
   else {
     activeRouteLine.setStyle({ color: settingsState.activeRoute });
   }
   //NON-ACTIVE ROUTE
   if (nonActiveRouteLine === null) {
-    nonActiveRouteLine = L.polyline(nonActiveRouteLL, { color: settingsState.nonActiveRoute }).addTo(mapInstance.current);
+    nonActiveRouteLine = L.polyline(nonActiveRouteLL, { color: settingsState.nonActiveRoute }).addTo(mapInstance);
   }
   else {
     nonActiveRouteLine.setStyle({ color: settingsState.nonActiveRoute });
   }
   //NAVIGATION VECTOR
   if (navVectorLine === null) {
-    navVectorLine = L.polyline(navVectorLL, { color: settingsState.navigationVector }).addTo(mapInstance.current);
+    navVectorLine = L.polyline(navVectorLL, { color: settingsState.navigationVector }).addTo(mapInstance);
   }
   else {
     navVectorLine.setStyle({ color: settingsState.navigationVector });

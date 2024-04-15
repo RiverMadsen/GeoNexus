@@ -15,6 +15,7 @@ import redIcon from './assets/map-icons/red.png';
 //import MarkerClusterGroup from 'react-leaflet-cluster';
 import { LocationButton } from './LocationButton';
 import { MenuButton } from './MenuButton';
+import CustomTileLayer from './CustomTileLayer';
 
 interface LeafletProps {
   onMenuClick: (actor: string) => void;
@@ -22,8 +23,10 @@ interface LeafletProps {
 
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   const [position, setPosition] = useState({ lat: 51.505, lng: -0.09, accuracy: 0, time: 'unset time' });
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<L.Map | null>(null); // Store the map instance
+  //const mapRef = useRef<HTMLDivElement>(null);
+  const [mapInstance, setMapInstance] = useState<L.Map | null>(null);
+
+  //const mapInstance = useRef<L.Map | null>(null); // Store the map instance
   const { state } = useSettings();
   const [tileLayerLoaded, setTileLayerLoaded] = useState(false);
   let timeAtLastPositionAcquire = new Date().getTime();
@@ -36,62 +39,14 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   }));
 
   useEffect(() => {
-    console.log("Leaflet.tsx use effect");
-
-
-    if (mapRef.current !== null && mapInstance.current === null) { // Check if the map is not already initialized
-
-      mapInstance.current = L.map(mapRef.current, { zoomControl: false });
-      if (mapInstance.current !== null) {
-        mapInstance.current.on('load', () => {
-          console.log("Map loaded");
-        });
-      }
-      mapInstance.current.setView([49, -114], 13);
-
-
-
-
-      L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
-      }).addTo(mapInstance.current).addEventListener('load', () => {
-        if (tileLayerLoaded === false) {
-          console.log("drawColorTestArea - Tile layer loaded");
-          //drawColorTestArea(L, mapInstance, state);
-          setTileLayerLoaded(true);
-        }
-
-      });
-    }
-
-    // Add click event listener
-    if (mapInstance.current !== null) {
-      mapInstance.current.on('click', () => {
-        console.log("click map")
-        //drawColorTestArea(L, mapInstance, state);
-        onMenuClick("map");
-      });
-    }
-
-
-    // Clean up function to avoid memory leaks and issues when the component unmounts
-    return () => {
-      if (mapInstance.current) {
-        mapInstance.current.remove();
-        mapInstance.current = null;
-      }
-    };
-  }, [tileLayerLoaded]);
-
-  useEffect(() => {
-    //console.log("state changed")
-    if (tileLayerLoaded) {
+    console.log("drawColorTestArea")
+    if (tileLayerLoaded || mapInstance) {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
-  }, [state])
+  }, [state,mapInstance])
 
-  const constructNextCurrentPositionIcon = ( ) => {
+  const constructNextCurrentPositionIcon = () => {
     let newURL = blueIcon;
     const elapsedTime = new Date().getTime() - timeAtLastPositionAcquire;
     if (elapsedTime > 80000) {
@@ -124,11 +79,11 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     const currentPosition = e.latlng;
     timeAtLastPositionAcquire = new Date().getTime();
     setPosition(() => {
-      if(timeoutIds.length === 0){
+      if (timeoutIds.length === 0) {
         timeoutIds.push(window.setInterval(() => {
           console.log("interval triggered")
           let nextIcon = constructNextCurrentPositionIcon()
-          if(nextIcon.options.iconUrl === redIcon){
+          if (nextIcon.options.iconUrl === redIcon) {
             window.clearInterval(timeoutIds[0]);
             console.log("interval cleared")
           }
@@ -144,13 +99,23 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       }
     })
   }
-
+  const handleTileLayerLoaded = () => {
+    console.log("handle tile layer loaded");
+    setTileLayerLoaded(true);
+  }
+  //49.12, -115.27
+  //center={[49, -114]}
   return (
     <>
-      <MapContainer center={[49, -114]} zoom={13} style={{ height: '100vh', width: '100vw' }} zoomControl={false} >
-        <TileLayer
+      <MapContainer ref={setMapInstance} center={[49.12, -115.27]} zoom={13} style={{ height: '100vh', width: '100vw' }} zoomControl={false} >
+        {/* <TileLayer
           url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors' />
+          attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
+        /> */}
+        <CustomTileLayer
+          url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png" onTileLayerLoaded={handleTileLayerLoaded}
+          attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
+        />
         <Marker position={[49, -114]} >
           <Popup><h2>Hello</h2></Popup>
         </Marker>
