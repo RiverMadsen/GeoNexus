@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet styles
 import { drawColorTestArea } from './colorTestArea';
 import { useSettings } from './store/SettingsContext';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import blueIcon from './assets/map-icons/blue.png';
 import greenIcon from './assets/map-icons/green.png';
