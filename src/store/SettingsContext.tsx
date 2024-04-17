@@ -20,7 +20,6 @@ export enum SettingsActionTypes {
   ACTIVE_ROUTE = 'ACTIVE_ROUTE',
   NON_ACTIVE_ROUTE = 'NON_ACTIVE_ROUTE',
   NAVIGATION_VECTOR = 'NAVIGATION_VECTOR',
-
 }
 // Define actions for changing settings
 type SettingsAction = {
