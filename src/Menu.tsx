@@ -41,24 +41,24 @@ const defaultMenuItems: MenuItem[] = [
     { id: 10, name: "Help", icon: <MdOutlineHelp />, color: "nex-blue", component: "Help" },
     { id: 11, name: "Geek Zone...", icon: <LuGlasses />, color: "nex-purple", component: "GeekZone", children: [
             {
-                id: 12, name: "React...", icon: <AiOutlineLogin />, color: "nex-red", children: [
-                    { id: 25, name: "Custom Hooks", icon: <TiFolderOpen />, color: "nex-orange", component: "OpenRoute" },
-                    { id: 26, name: "Context API", icon: <FaDrawPolygon />, color: "nex-yellow", component: "TakeAreaOffline" },
-                    { id: 27, name: "Redux-like State Managment", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
+                id: 12, name: "React...", icon:  <LuGlasses />, color: "nex-red", children: [
+                    { id: 25, name: "Custom Hooks", icon:  <LuGlasses />, color: "nex-red", component: "OpenRoute" },
+                    { id: 26, name: "Context API", icon:  <LuGlasses />, color: "nex-orange", component: "TakeAreaOffline" },
+                    { id: 27, name: "Redux-like State Managment", icon: <LuGlasses />, color: "nex-yellow", component: "SketchRoute" },
                 ]
             },
-            { id: 13, name: "Progressive Web Apps", icon: <TiFolderOpen />, color: "nex-orange", component: "OpenRoute" },
-            { id: 14, name: "Firebase", icon: <FaDrawPolygon />, color: "nex-yellow", component: "TakeAreaOffline" },
-            { id: 15, name: "Leaflet", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 16, name: "Next JS", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 17, name: "Tailwind CSS", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 18, name: "Indexed DB", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 19, name: "Algorithms...", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 20, name: "UI Theory anc Colors", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 21, name: "TypeScript", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 22, name: "Vite", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 23, name: "Vercel", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
-            { id: 24, name: "GitHub", icon: <BsPencil />, color: "nex-green", component: "SketchRoute" },
+            { id: 13, name: "Progressive Web Apps", icon:  <LuGlasses />, color: "nex-orange", component: "OpenRoute" },
+            { id: 14, name: "Firebase", icon:  <LuGlasses />, color: "nex-yellow", component: "TakeAreaOffline" },
+            { id: 15, name: "Leaflet", icon:  <LuGlasses />, color: "nex-green", component: "SketchRoute" },
+            { id: 16, name: "Next JS", icon: <LuGlasses />, color: "nex-blue", component: "SketchRoute" },
+            { id: 17, name: "Tailwind CSS", icon: <LuGlasses />, color: "nex-purple", component: "SketchRoute" },
+            { id: 18, name: "Indexed DB", icon:  <LuGlasses />, color: "nex-red", component: "SketchRoute" },
+            { id: 19, name: "Algorithms...", icon:  <LuGlasses />, color: "nex-orange", component: "SketchRoute" },
+            { id: 20, name: "UI Theory anc Colors", icon:  <LuGlasses />, color: "nex-yellow", component: "SketchRoute" },
+            { id: 21, name: "TypeScript", icon: <LuGlasses />, color: "nex-green", component: "SketchRoute" },
+            { id: 22, name: "Vite", icon:  <LuGlasses />, color: "nex-blue", component: "SketchRoute" },
+            { id: 23, name: "Vercel", icon: <LuGlasses />, color: "nex-purple", component: "SketchRoute" },
+            { id: 24, name: "GitHub", icon:  <LuGlasses />, color: "nex-red", component: "SketchRoute" },
 
         ]
     }];
