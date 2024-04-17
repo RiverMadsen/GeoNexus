@@ -105,7 +105,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   }
 
   const MapClickHandler = () => {
-    const map = useMapEvents({
+    useMapEvents({
       click: (e) => {
         console.log(`Map clicked at coordinates: ${e.latlng}`);
       },
