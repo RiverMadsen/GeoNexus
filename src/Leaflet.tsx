@@ -16,6 +16,7 @@ import redIcon from './assets/map-icons/red.png';
 import { LocationButton } from './LocationButton';
 import { MenuButton } from './MenuButton';
 import CustomTileLayer from './CustomTileLayer';
+import { useMapEvents } from 'react-leaflet';
 
 interface LeafletProps {
   onMenuClick: (actor: string) => void;
@@ -23,7 +24,6 @@ interface LeafletProps {
 
 const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
   const [position, setPosition] = useState({ lat: 51.505, lng: -0.09, accuracy: 0, time: 'unset time' });
-  //const mapRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<L.Map | null>(null);
 
   //const mapInstance = useRef<L.Map | null>(null); // Store the map instance
@@ -44,7 +44,7 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
       console.log("drawColorTestArea - state changed");
       drawColorTestArea(L, mapInstance, state);
     }
-  }, [state,mapInstance])
+  }, [state, mapInstance])
 
   const constructNextCurrentPositionIcon = () => {
     let newURL = blueIcon;
@@ -103,15 +103,29 @@ const Leaflet: React.FC<LeafletProps> = ({ onMenuClick }) => {
     console.log("handle tile layer loaded");
     setTileLayerLoaded(true);
   }
+
+  const MapClickHandler = () => {
+    useMapEvents({
+      click: (e) => {
+        console.log(`Map clicked at coordinates: ${e.latlng}`);
+      },
+    });
+
+    return null; // This component does not render anything
+  };
+
+
   //49.12, -115.27
   //center={[49, -114]}
   return (
     <>
-      <MapContainer ref={setMapInstance} center={[49.12, -115.27]} zoom={13} style={{ height: '100vh', width: '100vw' }} zoomControl={false} >
+      <MapContainer
+        ref={setMapInstance} center={[49.12, -115.27]} zoom={13} style={{ height: '100vh', width: '100vw' }} zoomControl={false} >
         {/* <TileLayer
           url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
         /> */}
+        <MapClickHandler />
         <CustomTileLayer
           url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png" onTileLayerLoaded={handleTileLayerLoaded}
           attribution='&copy; <a href="https://www.opentopomap.org/#map">OpenTopoMap</a> contributors'
